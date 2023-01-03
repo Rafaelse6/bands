@@ -1,0 +1,2 @@
+INSERT INTO tb_genre(name, description) VALUES ('Metal', ' Heavily distorted guitar riffs and chords, powerful drumming, extra low-range bass notes, and aggressive or throaty vocals.');
+INSERT INTO tb_genre(name, description) VALUES ('Classical', 'Music written in a Western musical tradition, usually using an established form');

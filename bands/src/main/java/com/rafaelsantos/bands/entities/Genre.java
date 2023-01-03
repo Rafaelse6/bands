@@ -1,12 +1,15 @@
 package com.rafaelsantos.bands.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +24,9 @@ public class Genre implements Serializable{
 	private String description;
 	
 	public Genre() {}
+	
+	@ManyToMany(mappedBy = "genres")
+	private Set<Song> songs = new HashSet<>();
 
 	public Genre(Long id, String name, String description) {
 		super();

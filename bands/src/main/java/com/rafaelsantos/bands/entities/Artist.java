@@ -1,47 +1,39 @@
 package com.rafaelsantos.bands.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_song")
-public class Song implements Serializable{
+@Table(name = "tb_artist")
+public class Artist implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	private String title;
 	
-	@ManyToMany
-	@JoinTable(name="tb_song_genre", 
-			joinColumns = @JoinColumn(name="song_id"),
-			inverseJoinColumns = @JoinColumn(name="genre_id")
-	)
-	private Set<Genre> genres = new HashSet<>();
+	private String name;
+	private String address;
 	
-	@ManyToOne
-	@JoinColumn(name = "album_id")
+	@OneToOne
+    @JoinColumn(name = "album_id")
 	private Album album;
 	
-	public Song() {}
+	public Artist() {}
 
-	public Song(Long id, String title) {
+	public Artist(Long id, String name, String address) {
 		super();
 		this.id = id;
-		this.title = title;
+		this.name = name;
+		this.address = address;
 	}
 
 	public Long getId() {
@@ -52,18 +44,22 @@ public class Song implements Serializable{
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getName() {
+		return name;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public Set<Genre> getGenres() {
-		return genres;
+	public String getAddress() {
+		return address;
 	}
-	
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public Album getAlbum() {
 		return album;
 	}
@@ -76,7 +72,7 @@ public class Song implements Serializable{
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-		
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -85,9 +81,7 @@ public class Song implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Song other = (Song) obj;
+		Artist other = (Artist) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
 }

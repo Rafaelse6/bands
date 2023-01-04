@@ -2,12 +2,17 @@ package com.rafaelsantos.bands.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +29,12 @@ public class Album implements Serializable{
 	private Instant releaseDate;
 	private String format;
 	private Integer albumNumber;
+	
+	@OneToOne(mappedBy = "album")
+	private Artist artist;
+	
+	@OneToMany(mappedBy = "album") 
+	private Set<Song> songs = new HashSet<>();
 	
 	public Album() {}
 
@@ -74,5 +85,34 @@ public class Album implements Serializable{
 
 	public void setAlbumNumber(Integer albumNumber) {
 		this.albumNumber = albumNumber;
+	}
+
+	public Set<Song> getSongs() {
+		return songs;
+	}
+	
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Album other = (Album) obj;
+		return Objects.equals(id, other.id);
 	}
 }

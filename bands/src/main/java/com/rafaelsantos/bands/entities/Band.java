@@ -1,46 +1,33 @@
 package com.rafaelsantos.bands.entities;
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tb_artist")
-public class Artist implements Serializable{
+@Table(name = "tb_band")
+public class Band implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
 	private String name;
-	private String address;
-
-	@OneToOne
-    @JoinColumn(name = "album_id")
-	private Album album;
+	private Integer yearOfFoundation;
+	private String placeOfOrigin;
 	
-	@OneToMany(mappedBy = "artist")
-	private Set<Band> bands = new HashSet<>();
+	@ManyToOne
+	@JoinColumn(name = "artist_id")
+	private Artist artist;
 	
-	public Artist() {}
-
-	public Artist(Long id, String name, String address) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.address = address;
-	}
+	public Band() {}
 
 	public Long getId() {
 		return id;
@@ -58,23 +45,28 @@ public class Artist implements Serializable{
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
+	public Integer getYearOfFoundation() {
+		return yearOfFoundation;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setYearOfFoundation(Integer yearOfFoundation) {
+		this.yearOfFoundation = yearOfFoundation;
 	}
 
-	public Album getAlbum() {
-		return album;
+	public String getPlaceOfOrigin() {
+		return placeOfOrigin;
 	}
 
-	public void setAlbum(Album album) {
-		this.album = album;
+	public void setPlaceOfOrigin(String placeOfOrigin) {
+		this.placeOfOrigin = placeOfOrigin;
 	}
-	public Set<Band> getBands() {
-		return bands;
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
 
 	@Override
@@ -90,7 +82,7 @@ public class Artist implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Artist other = (Artist) obj;
+		Band other = (Band) obj;
 		return Objects.equals(id, other.id);
 	}
 }

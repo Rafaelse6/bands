@@ -35,7 +35,7 @@ public class Song implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "album_id")
 	private Album album;
-	
+
 	public Song() {}
 
 	public Song(Long id, String title) {
@@ -71,7 +71,7 @@ public class Song implements Serializable{
 	public void setAlbum(Album album) {
 		this.album = album;
 	}
-
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);

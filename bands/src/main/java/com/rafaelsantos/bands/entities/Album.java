@@ -32,19 +32,20 @@ public class Album implements Serializable{
 	
 	@OneToOne(mappedBy = "album")
 	private Artist artist;
-	
+
 	@OneToMany(mappedBy = "album") 
 	private Set<Song> songs = new HashSet<>();
 	
 	public Album() {}
 
-	public Album(Long id, String title, Instant releaseDate, String format, Integer albumNumber) {
+	public Album(Long id, String title, Instant releaseDate, String format, Integer albumNumber, Artist artist) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.format = format;
 		this.albumNumber = albumNumber;
+		this.artist = artist;
 	}
 
 	public Long getId() {

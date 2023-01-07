@@ -31,4 +31,13 @@ public class GenreService {
 		Genre entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
 		return new GenreDTO(entity);
 	}
+	
+	@Transactional
+	public GenreDTO insert(GenreDTO dto) {
+		Genre entity = new Genre();
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity = repository.save(entity);
+		return new GenreDTO(entity);
+	}
 }

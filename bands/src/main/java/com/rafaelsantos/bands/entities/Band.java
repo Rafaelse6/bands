@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -26,6 +28,10 @@ public class Band implements Serializable{
 	
 	@OneToMany(mappedBy = "band")
 	private Set<Album> albums = new HashSet<>();
+	
+	@ManyToOne
+	@JoinColumn(name = "artist_id")
+	private Artist artist;
 	
 	public Band() {}
 	
@@ -71,6 +77,14 @@ public class Band implements Serializable{
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Artist getArtist() {
+		return artist;
+	}
+
+	public void setArtist(Artist artist) {
+		this.artist = artist;
 	}
 
 	@Override

@@ -23,4 +23,6 @@ public class GenreResource {
 		Page<GenreDTO> list = service.findAllPaged(pageable);
 		return ResponseEntity.ok().body(list);
 	}
+	
+	
 }

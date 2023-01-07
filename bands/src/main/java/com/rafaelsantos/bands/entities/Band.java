@@ -1,14 +1,15 @@
 package com.rafaelsantos.bands.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,11 +24,18 @@ public class Band implements Serializable{
 	private Integer yearOfFoundation;
 	private String placeOfOrigin;
 	
-	@ManyToOne
-	@JoinColumn(name = "artist_id")
-	private Artist artist;
+	@OneToMany(mappedBy = "band")
+	private Set<Album> albums = new HashSet<>();
 	
 	public Band() {}
+	
+	public Band(Long id, Integer yearOfFoundation, String name,String placeOfOrigin) {
+		super();
+		this.id = id;
+		this.yearOfFoundation = yearOfFoundation;
+		this.placeOfOrigin = placeOfOrigin;
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -35,14 +43,6 @@ public class Band implements Serializable{
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public Integer getYearOfFoundation() {
@@ -61,12 +61,16 @@ public class Band implements Serializable{
 		this.placeOfOrigin = placeOfOrigin;
 	}
 
-	public Artist getArtist() {
-		return artist;
+	public Set<Album> getAlbums() {
+		return albums;
+	}
+	
+	public String getName() {
+		return name;
 	}
 
-	public void setArtist(Artist artist) {
-		this.artist = artist;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override

@@ -11,8 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -30,22 +31,23 @@ public class Album implements Serializable{
 	private String format;
 	private Integer albumNumber;
 	
-	@OneToOne(mappedBy = "album")
-	private Artist artist;
 
 	@OneToMany(mappedBy = "album") 
 	private Set<Song> songs = new HashSet<>();
 	
+	@ManyToOne
+	@JoinColumn(name = "band_id")
+	private Band band;
+	
 	public Album() {}
 
-	public Album(Long id, String title, Instant releaseDate, String format, Integer albumNumber, Artist artist) {
+	public Album(Long id, String title, Instant releaseDate, String format, Integer albumNumber) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.releaseDate = releaseDate;
 		this.format = format;
 		this.albumNumber = albumNumber;
-		this.artist = artist;
 	}
 
 	public Long getId() {
@@ -90,14 +92,6 @@ public class Album implements Serializable{
 
 	public Set<Song> getSongs() {
 		return songs;
-	}
-	
-	public Artist getArtist() {
-		return artist;
-	}
-
-	public void setArtist(Artist artist) {
-		this.artist = artist;
 	}
 
 	@Override
